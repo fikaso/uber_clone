@@ -1,1 +1,1 @@
-APP preview: exp://exp.host/@fikaso/uber_clone
+APP preview: https://expo.dev/@fikaso/uber_clone
