@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useEffect, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
@@ -13,13 +12,25 @@ import { setDestination } from "../slices/navSlice";
 const NavigateCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (selected) {
+      dispatch(
+        setDestination({
+          location: selected.location,
+          description: selected.description,
+        })
+      );
+    }
+  }, [selected]);
   return (
     <View style={tw`bg-white flex-1`}>
       <Text style={tw`text-center py-5 text-xl`}>Good morning, Filip</Text>
       <View style={tw`border-t border-gray-200 flex-shrink`}>
         <View>
           <GooglePlacesAutocomplete
-            placeholder="Where To"
+            placeholder={`${selected ? selected.description : "Where To?"} `}
             styles={toInputBoxStyles}
             enablePoweredByContainer={false}
             fetchDetails={true}
@@ -43,7 +54,7 @@ const NavigateCard = () => {
             debounce={400}
           />
         </View>
-        <NavFavourites />
+        <NavFavourites setSelected={setSelected} />
       </View>
       <View
         style={tw`flex-row bg-white justify-evenly py-2 mt-auto border-t border-gray-100`}

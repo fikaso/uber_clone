@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 import { useNavigation } from "@react-navigation/core";
